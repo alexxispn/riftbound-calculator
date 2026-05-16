@@ -7,7 +7,9 @@ import TurnTable, { type TurnRow } from './TurnTable';
 const HERO_EXTRA_DRAWS = 1; // T1 en 1v1 estándar — ambos jugadores roban.
 
 export default function Calculator() {
-  const [deckSize, setDeckSize] = useState<number>(40);
+  // 39 = 40 cartas del deck-build menos 1 Chosen Champion, que está siempre
+  // disponible y no entra en la pila de robo. Ver nota al pie.
+  const [deckSize, setDeckSize] = useState<number>(39);
   const [copies, setCopies] = useState<number>(8);
   const [atLeast, setAtLeast] = useState<number>(1);
   const [mulligan, setMulligan] = useState<number>(2);
@@ -95,6 +97,14 @@ export default function Calculator() {
         className="animate-rise space-y-3 text-xs leading-relaxed text-muted"
         style={{ animationDelay: '420ms' }}
       >
+        <p>
+          <strong className="font-medium text-ink/80">Mazo robable.</strong>{' '}
+          En Riftbound un mazo principal son 40 cartas, pero 1 de ellas (el{' '}
+          <em>Chosen Champion</em>) está siempre disponible para jugar y no
+          entra en la pila de robo. Por eso el valor por defecto de{' '}
+          <em>Cartas en el mazo</em> es 39 — el universo real sobre el que
+          se calcula la probabilidad hipergeométrica.
+        </p>
         <p>
           <strong className="font-medium text-ink/80">Fórmula.</strong>{' '}
           Distribución hipergeométrica P(<em>X</em> ≥ k) con corrección por
