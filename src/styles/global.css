@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@theme {
+  /* Breakpoint override para el spec mobile <600px. */
+  --breakpoint-sm: 600px;
+
+  /* Paleta — editorial dark. Cooler near-black con acentos cálidos. */
+  --color-bg: #0c0816;
+  --color-panel: #16112b;
+  --color-line: #2a2042;
+  --color-faint: #463a5e;
+  --color-ink: #ebe1cd;
+  --color-muted: #8a7fa1;
+
+  --color-gold: #d4a14a;
+  --color-gold-bright: #f0c068;
+  --color-gold-deep: #8a6a30;
+  --color-teal: #4ec9b0;
+
+  /* Semánticos — afinados al fondo morado, distintos del dorado/teal. */
+  --color-success: #7bc485;
+  --color-warning: #d9a04a;
+  --color-danger: #c46868;
+
+  /* Tipografía: Fraunces (display editorial), Spline Sans (body),
+     JetBrains Mono (datos numéricos en tabla, stepper, segmented). */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "Spline Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    /* Gradientes radiales dorado arriba-izquierda y teal abajo-derecha,
+       fijos al viewport para no moverse al scrollear. */
+    background-image:
+      radial-gradient(
+        ellipse 80% 60% at 8% 0%,
+        color-mix(in oklab, var(--color-gold) 14%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 60% 50% at 100% 100%,
+        color-mix(in oklab, var(--color-teal) 10%, transparent),
+        transparent 70%
+      );
+    background-attachment: fixed;
+  }
+
+  /* Grano de papel: SVG turbulencia inline, mezclado en soft-light al 7%.
+     Sin pointer-events, no bloquea interacción. */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.07;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+  }
+
+  /* Focus visible coherente con la paleta dorado. */
+  :where(button, input, [role="radio"]):focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Reset de spinners nativos: usamos stepper +/− custom. */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    appearance: textfield;
+  }
+
+  /* Reglas hairline coherentes con la paleta. */
+  hr {
+    border-top: 1px solid var(--color-line);
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+}
+
+@layer utilities {
+  .animate-rise {
+    animation: rise 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}

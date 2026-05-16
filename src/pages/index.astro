@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+import Calculator from '../components/Calculator';
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Calculadora de robo · Riftbound</title>
+		<meta
+			name="description"
+			content="Calculadora hipergeométrica para Riftbound: probabilidad de robar tus cartas clave en la mano inicial y en los primeros turnos."
+		/>
+		<meta property="og:title" content="Calculadora de robo · Riftbound" />
+		<meta
+			property="og:description"
+			content="Calcula la probabilidad de tener tus cartas clave a tiempo en Riftbound."
+		/>
+		<meta property="og:type" content="website" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=JetBrains+Mono:wght@400;500&family=Spline+Sans:wght@400;500&display=swap"
+		/>
+	</head>
+	<body>
+		<Calculator client:load />
+	</body>
+</html>
