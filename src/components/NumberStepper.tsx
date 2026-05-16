@@ -4,9 +4,10 @@ type Props = {
   min: number;
   max: number;
   onChange: (next: number) => void;
+  hint?: string;
 };
 
-export default function NumberStepper({ label, value, min, max, onChange }: Props) {
+export default function NumberStepper({ label, value, min, max, onChange, hint }: Props) {
   const clamp = (n: number): number => Math.max(min, Math.min(max, n));
   const id = `stepper-${label.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')}`;
 
@@ -51,6 +52,11 @@ export default function NumberStepper({ label, value, min, max, onChange }: Prop
           <span className="font-mono text-xl leading-none">+</span>
         </button>
       </div>
+      {hint && (
+        <p className="mt-2 font-sans text-[0.7rem] italic text-muted/80">
+          {hint}
+        </p>
+      )}
     </div>
   );
 }

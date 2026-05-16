@@ -34,18 +34,20 @@ export default function ParamForm(props: Props) {
           onChange={props.onDeckSize}
         />
         <NumberStepper
-          label="Copias que busco"
+          label="Copias en el mazo"
           value={props.copies}
           min={0}
           max={props.deckSize}
           onChange={props.onCopies}
+          hint="Ej. nº de unidades de coste 2"
         />
         <NumberStepper
-          label="Copias mínimas a robar"
+          label="Quiero al menos…"
           value={props.atLeast}
           min={1}
           max={9}
           onChange={props.onAtLeast}
+          hint="Copias deseadas en mano"
         />
         <SegmentedControl<number>
           label="Mulligan"
