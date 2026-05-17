@@ -4,6 +4,12 @@ type Props = {
   probability: number;
   atLeast: number;
   cardsSeen: number;
+  // Sobrescribe la etiqueta "P(≥X copia)" del pie de la cifra. Útil en modo
+  // Combo donde la métrica es "Combo completo" en vez de copias individuales.
+  captionLabel?: string;
+  // Texto secundario que se renderiza bajo la cifra a ancho completo,
+  // típicamente para describir la composición del combo.
+  subtitle?: string;
 };
 
 const textByTier = {
@@ -12,12 +18,21 @@ const textByTier = {
   danger: 'text-danger',
 } as const;
 
-export default function HeroStat({ probability, atLeast, cardsSeen }: Props) {
+export default function HeroStat({
+  probability,
+  atLeast,
+  cardsSeen,
+  captionLabel,
+  subtitle,
+}: Props) {
   const tier = thresholdOf(probability);
   const formatted = formatPercent(probability);
   // Separamos el '%' del número para renderizarlo más pequeño y elegante,
   // como en revistas de datos. El número ocupa todo el peso visual.
   const num = formatted.slice(0, -1);
+  const caption =
+    captionLabel ??
+    `P(≥ ${atLeast} ${atLeast === 1 ? 'copia' : 'copias'})`;
   return (
     <section
       aria-live="polite"
@@ -45,12 +60,18 @@ export default function HeroStat({ probability, atLeast, cardsSeen }: Props) {
             <span className="ml-2 align-baseline text-[0.55em] opacity-70">%</span>
           </p>
           <p className="mt-5 font-sans text-[0.7rem] font-medium uppercase tracking-[0.24em] text-muted">
-            P(≥&nbsp;{atLeast}&nbsp;{atLeast === 1 ? 'copia' : 'copias'})
+            {caption}
             <span className="mx-2 text-faint">·</span>
             {cardsSeen}&nbsp;cartas&nbsp;vistas
           </p>
         </div>
       </div>
+
+      {subtitle && (
+        <p className="mt-6 font-sans text-sm italic text-muted/90 sm:mt-8">
+          {subtitle}
+        </p>
+      )}
     </section>
   );
 }

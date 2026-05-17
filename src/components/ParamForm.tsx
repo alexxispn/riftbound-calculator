@@ -32,6 +32,7 @@ export default function ParamForm(props: Props) {
           min={10}
           max={60}
           onChange={props.onDeckSize}
+          hint="Cartas robables del mazo. En Riftbound, 39 (el Chosen está aparte)."
         />
         <NumberStepper
           label="Copias en el mazo"
